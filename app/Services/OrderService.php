@@ -11,6 +11,10 @@ class OrderService{
             .'&service='.$data['service_id']
             .'&link='.$data['link']
             .'&quantity='.$data['quantity']);
-        return $response->body();
+        if($response->body() != '{"error":"Incorrect request"}'){
+            return $response->body();
+        }else{
+            return back()->withErrors('Произошла ошибка, попробуйте еще раз');
+        }
     }
 }

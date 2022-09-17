@@ -19,4 +19,3 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('services', [App\Http\Controllers\API\ServiceController::class, 'get']);
-Route::post('new-order', [App\Http\Controllers\API\OrderController::class, 'newOrder']);

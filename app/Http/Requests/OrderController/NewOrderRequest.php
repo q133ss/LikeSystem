@@ -29,4 +29,14 @@ class NewOrderRequest extends FormRequest
             'quantity' => 'integer|required'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'service_id.required' => 'Выберите услугу',
+            'link.required' => 'Введите ссылку',
+            'quantity.required' => 'Введите количество',
+            'quantity.integer' => 'Количество должно быть числом'
+        ];
+    }
 }
