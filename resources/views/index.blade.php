@@ -1,24 +1,34 @@
 @extends('layouts.app')
 @section('title','Главная')
+@section('meta')
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+@endsection
 @section('content')
     <div class="btn-group mb-2" role="group" aria-label="Basic radio toggle button group">
         <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio1">VK</label>
+        <label class="btn btn-outline-primary waves-effect" for="btnradio1" onclick="serviceChange('vk')">VK</label>
 
         <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio2">Inst</label>
+        <label class="btn btn-outline-primary waves-effect" for="btnradio2" onclick="serviceChange('inst')">Instagram</label>
 
         <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio3">TikTok</label>
+        <label class="btn btn-outline-primary waves-effect" for="btnradio3" onclick="serviceChange(3)">TikTok</label>
 
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio3">YouTube</label>
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
+        <label class="btn btn-outline-primary waves-effect" for="btnradio4" onclick="serviceChange(4)">YouTube</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
+        <label class="btn btn-outline-primary waves-effect" for="btnradio5" onclick="serviceChange(4)">Telegram</label>
+
+        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
+        <label class="btn btn-outline-primary waves-effect" for="btnradio6" onclick="serviceChange(4)">Twitter</label>
     </div>
 
+    <div class="row">
+
     <div class="col-md-6 col-12">
-        <form action="" id="vk-form">
+        <form action="/api/new-order" method="POST" id="vk-form">
             @csrf
-            <input type="hidden" name="service_id" id="service_id">
             <div class="card">
             <div class="card-header">
                 <h4 class="card-title">VK</h4>
@@ -26,34 +36,20 @@
             <div class="card-body">
                 <div class="mb-1">
                     <label class="form-label" for="basicSelect">Тип накрутки</label>
-                    <select class="form-select" id="basicSelect vk-type-select">
-                        <option selected value="1">Лайки</option>
-                        <option value="2">Опросы</option>
-                        <option value="3">Подписчики</option>
+                    <select class="form-select" onchange="vkTypeSelect($(this).val())" id="basicSelect vk-type-select">
+                        <option selected value="vk-likes-service">Лайки</option>
+                        <option value="vk-polls-service">Опросы</option>
+                        <option value="vk-subscribe-service">Подписчики</option>
                     </select>
                 </div>
 
-                <div class="mb-1" id="vk-likes-service">
-                    <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
-                    <select class="form-select" id="basicSelect">
-                        <option>Лайки качественные (70 руб.)</option>
-                    </select>
-                </div>
-
-                <div class="mb-1" id="vk-subscribe-service" style="display: none">
-                    <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
-                    <select class="form-select" id="basicSelect">
-                        <option>Подписчики на страницу (150 руб.)</option>
-                        <option>Друзья в профиль (150 руб.)</option>
-                        <option>Подписчики на страницу качественные (80 руб.)</option>
-                        <option>Друзья в профиль качественные (150 руб.)</option>
-                    </select>
-                </div>
-
-                <div class="mb-1" id="vk-polls-service" style="display: none">
-                    <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
-                    <select class="form-select" id="basicSelect">
-                    </select>
+                <div id="service-area">
+                    <div class="mb-1" id="vk-likes-service">
+                        <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
+                        <select class="form-select" name="service_id" id="basicSelect">
+                            <option value="400">Лайки качественные (70 руб.)</option>
+                        </select>
+                    </div>
                 </div>
 
                 <div class="mb-1">
@@ -70,9 +66,78 @@
             </div>
         </div>
         </form>
+
+        <form action="/api/new-order" method="POST" style="display: none" id="inst-form">
+            @csrf
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Instagram</h4>
+                </div>
+                <div class="card-body">
+                    <div class="mb-1">
+                        <label class="form-label" for="basicSelect">Тип накрутки</label>
+                        <select class="form-select" onchange="vkTypeSelect($(this).val())" id="basicSelect vk-type-select">
+                            <option selected value="vk-likes-service">Лайки</option>
+                            <option value="vk-polls-service">Опросы</option>
+                            <option value="vk-subscribe-service">Подписчики</option>
+                        </select>
+                    </div>
+
+                    <div id="service-area">
+                        <div class="mb-1" id="vk-likes-service">
+                            <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
+                            <select class="form-select" name="service_id" id="basicSelect">
+                                <option value="400">Лайки качественные (70 руб.)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="mb-1">
+                        <label class="form-label" for="basicInput">Ссылка на пост</label>
+                        <input type="text" class="form-control" id="basicInput" placeholder="">
+                    </div>
+
+                    <div class="mb-1">
+                        <label class="form-label" for="basicInput">Количество (минимум 10)</label>
+                        <input type="text" class="form-control" id="basicInput" placeholder="">
+                    </div>
+
+                    <button class="btn btn-primary waves-effect waves-float waves-light">Отправить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    <div class="col-md-6 col-12">
+        <h1>Лайки <small class="text-muted">(Цена указана за 100 шт)</small></h1>
+
+        <dl class="row">
+            <dt class="col-sm-3">Запуск:</dt>
+            <dd class="col-sm-9">В течение 5-20 минут после оплаты*.</dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Скорость:</dt>
+            <dd class="col-sm-9">До 120-200 в час</dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Минимальный заказ:</dt>
+            <dd class="col-sm-9">100</dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Максимальный заказ:</dt>
+            <dd class="col-sm-9">30000</dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Требования к аккаунту:</dt>
+            <dd class="col-sm-9">Профиль должен быть открытым и иметь аватарку, на профиле не должно быть возрастных ограничений.</dd>
+        </dl>
+    </div>
     </div>
 @endsection
 @section('scripts')
-    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
     <script src="/assets/indexpage.js"></script>
 @endsection

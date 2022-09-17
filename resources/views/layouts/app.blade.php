@@ -44,6 +44,7 @@
     <!-- BEGIN: Custom CSS-->
     <link rel="stylesheet" type="text/css" href="/assets/assets/css/style.css">
     <!-- END: Custom CSS-->
+    @yield('meta')
 
 </head>
 <!-- END: Head-->
