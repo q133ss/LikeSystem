@@ -296,6 +296,13 @@
                     <span class="menu-title text-truncate" data-i18n="Email">Пополнть баланс</span>
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a class="d-flex align-items-center" href="{{route('admin.index')}}">
+                    <i data-feather="mail"></i>
+                    <span class="menu-title text-truncate">Админка</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>
