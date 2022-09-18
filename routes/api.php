@@ -20,3 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::get('services', [App\Http\Controllers\API\ServiceController::class, 'get']);
 Route::post('/type-change/{id}', [App\Http\Controllers\Api\TypeController::class, 'typeChange']);
+Route::get('/get-service/{id}', [App\Http\Controllers\Api\ServiceController::class, 'getInfo']);

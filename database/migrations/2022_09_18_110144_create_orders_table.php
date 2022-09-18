@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id');
             $table->foreignId('type_id');
             $table->foreignId('service_id');
-            $table->float('price');
+            $table->float('price')->nullable();
             $table->timestamps();
         });
     }

@@ -41,9 +41,9 @@
                 </div>
                 @if(isset($category->types->first()->id))
                 <div id="service-area">
-                    <div class="mb-1" id="vk-likes-service">
+                    <div class="mb-1">
                         <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
-                        <select class="form-select" name="service_id" id="basicSelect">
+                        <select class="form-select" name="service_id" id="basicSelect service-select">
                             @foreach(App\Models\Type::find($category->types->first()->id)->services as $key => $serve)
                             <option value="{{$serve->service_id}}" @if($key == 0) selected @endif>{{$serve->name}}</option>
                             @endforeach
@@ -68,19 +68,43 @@
         @endforeach
     </div>
     <div class="col-md-6 col-12">
-        <h1>Лайки <small class="text-muted">(Цена указана за 100 шт)</small></h1>
+        <h1 id="info-service-name">Выберите услугу</h1>
         <dl class="row">
             <dt class="col-sm-3">Итого:</dt>
-            <dd class="col-sm-9"><strong>100 ₽</strong></dd>
+            <dd class="col-sm-9"><strong id="info-service-price"></strong></dd>
+        </dl>
+        <dl class="row">
+            <dt class="col-sm-3">Качество:</dt>
+            <dd class="col-sm-9" id="info-service-quality"></dd>
         </dl>
         <dl class="row">
             <dt class="col-sm-3">Запуск:</dt>
-            <dd class="col-sm-9">В течение 5-20 минут после оплаты*.</dd>
+            <dd class="col-sm-9" id="info-service-start"></dd>
         </dl>
 
         <dl class="row">
             <dt class="col-sm-3">Скорость:</dt>
-            <dd class="col-sm-9">До 120-200 в час</dd>
+            <dd class="col-sm-9" id="info-service-speed"></dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Списания:</dt>
+            <dd class="col-sm-9" id="info-service-write_offs"></dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Списания:</dt>
+            <dd class="col-sm-9" id="info-service-guarantee"></dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Максимум:</dt>
+            <dd class="col-sm-9" id="info-service-max"></dd>
+        </dl>
+
+        <dl class="row">
+            <dt class="col-sm-3">Особенности:</dt>
+            <dd class="col-sm-9" id="info-service-peculiarities"></dd>
         </dl>
 
 {{--        <dl class="row">--}}

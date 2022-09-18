@@ -19,6 +19,13 @@ return new class extends Migration
             $table->unsignedBigInteger('service_id');
             $table->string('name');
             $table->float('price');
+            $table->string('quality')->nullable();
+            $table->string('start')->nullable();
+            $table->string('speed')->nullable();
+            $table->string('write_offs')->nullable();
+            $table->string('guarantee')->nullable();
+            $table->string('max')->nullable();
+            $table->string('peculiarities')->nullable();
             $table->timestamps();
         });
     }
