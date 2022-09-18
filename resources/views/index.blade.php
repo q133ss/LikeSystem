@@ -33,7 +33,7 @@
             <div class="card-body">
                 <div class="mb-1">
                     <label class="form-label" for="basicSelect">Тип накрутки</label>
-                    <select class="form-select" onchange="typeChange($(this).val())" id="basicSelect vk-type-select">
+                    <select class="form-select" onchange="typeChange($(this).val(), '{{$category->id}}')" id="basicSelect vk-type-select">
                         @foreach($category->types as $k => $type)
                         <option @if($k == 0) selected @endif value="{{$type->id}}">{{$type->name}}</option>
                         @endforeach
@@ -43,11 +43,13 @@
                 <div id="service-area">
                     <div class="mb-1">
                         <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
-                        <select class="form-select" name="service_id" id="basicSelect service-select">
+                        <div id="service-select-area">
+                        <select class="form-select" name="service_id" id="basicSelect service-select" onchange="serviceInfo($(this).val())">
                             @foreach(App\Models\Type::find($category->types->first()->id)->services as $key => $serve)
                             <option value="{{$serve->service_id}}" @if($key == 0) selected @endif>{{$serve->name}}</option>
                             @endforeach
                         </select>
+                        </div>
                     </div>
                 </div>
                 @endif
@@ -125,10 +127,8 @@
     </div>
 @endsection
 @section('scripts')
-    <script src="/assets/indexpage.js"></script>
-
     <script>
-        function typeChange(id){
+        function typeChange(id, form_id){
             $.ajax({
                 url: '/api/type-change/'+id,
                 method: 'POST',
@@ -138,7 +138,9 @@
                 data: 1,
                 cache: false,
                 success: function (data) {
-                    $('#vk-likes-service').html(data)
+                    $('#'+form_id+'-service-form').find('#service-select-area').html(data)
+                    let servId = $('#'+form_id+'-service-form').find('#service-select-area > select').val()
+                    serviceInfo(servId)
                 },
                 error: function (xhr, ajaxOptions, thrownError) {
                     console.log(xhr.status);
@@ -147,4 +149,5 @@
             });
         }
     </script>
+    <script src="/assets/indexpage.js"></script>
 @endsection

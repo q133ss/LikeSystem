@@ -21,7 +21,6 @@ class OrderService{
             return to_route('orders')->withSuccess('Заказ успешно создан!');
         }else{
             return back()->withErrors('Произошла ошибка, попробуйте еще раз');
-            //return back()->withErrors($response->body());
         }
     }
 }

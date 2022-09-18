@@ -276,15 +276,15 @@
     <div class="main-menu-content">
         <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
 
-            <li class="active nav-item">
-                <a class="d-flex align-items-center" href="app-email.html">
+            <li class="nav-item">
+                <a class="d-flex align-items-center" href="/">
                     <i data-feather="mail"></i>
                     <span class="menu-title text-truncate" data-i18n="Email">Создать заказ</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="d-flex align-items-center" href="app-email.html">
+                <a class="d-flex align-items-center" href="{{route('my.orders')}}">
                     <i data-feather="mail"></i>
                     <span class="menu-title text-truncate" data-i18n="Email">Мои заказы</span>
                 </a>
@@ -296,13 +296,14 @@
                     <span class="menu-title text-truncate" data-i18n="Email">Пополнть баланс</span>
                 </a>
             </li>
-
+            @if(Auth()->user()->isAdmin)
             <li class="nav-item">
                 <a class="d-flex align-items-center" href="{{route('admin.index')}}">
                     <i data-feather="mail"></i>
                     <span class="menu-title text-truncate">Админка</span>
                 </a>
             </li>
+            @endif
         </ul>
     </div>
 </div>
