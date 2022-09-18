@@ -12,6 +12,11 @@ class Type extends Model
 
     public function category()
     {
-        $this->hasOne(Category::class, 'id', 'category_id');
+        return $this->hasOne(Category::class, 'id', 'category_id');
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class, 'type_id', 'id');
     }
 }

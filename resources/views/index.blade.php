@@ -1,27 +1,15 @@
 @extends('layouts.app')
 @section('title','Главная')
 @section('meta')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 @endsection
 @section('content')
     <div class="btn-group mb-2" role="group" aria-label="Basic radio toggle button group">
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio1" autocomplete="off" checked="">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio1" onclick="serviceChange('vk')">VK</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio2" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio2" onclick="serviceChange('inst')">Instagram</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio3" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio3" onclick="serviceChange(3)">TikTok</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio4" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio4" onclick="serviceChange(4)">YouTube</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio5" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio5" onclick="serviceChange(4)">Telegram</label>
-
-        <input type="radio" class="btn-check" name="btnradio" id="btnradio6" autocomplete="off">
-        <label class="btn btn-outline-primary waves-effect" for="btnradio6" onclick="serviceChange(4)">Twitter</label>
+        @foreach($categories as $key => $category)
+            <input type="radio" class="btn-check" name="btnradio" id="btnradio{{$key}}" autocomplete="off" @if($key == 0) checked @endif>
+            <label class="btn btn-outline-primary waves-effect" for="btnradio{{$key}}" onclick="serviceChange('{{$category->id}}', '{{$categories->count()}}')">{{$category->name}}</label>
+        @endforeach
     </div>
 
     <div class="row">
@@ -35,31 +23,34 @@
             @endforeach
         @endif
     <div class="col-md-6 col-12">
-        <form action="{{route('new.order')}}" method="POST" id="vk-form">
+        @foreach($categories as $key => $category)
+        <form action="{{route('new.order')}}" method="POST" id="{{$category->id}}-service-form" @if($key != 0) style="display: none" @endif>
             @csrf
             <div class="card">
             <div class="card-header">
-                <h4 class="card-title">VK</h4>
+                <h4 class="card-title">{{$category->name}}</h4>
             </div>
             <div class="card-body">
                 <div class="mb-1">
                     <label class="form-label" for="basicSelect">Тип накрутки</label>
-                    <select class="form-select" onchange="vkTypeSelect($(this).val())" id="basicSelect vk-type-select">
-                        <option selected value="vk-likes-service">Лайки</option>
-                        <option value="vk-polls-service">Опросы</option>
-                        <option value="vk-subscribe-service">Подписчики</option>
+                    <select class="form-select" onchange="typeChange($(this).val())" id="basicSelect vk-type-select">
+                        @foreach($category->types as $k => $type)
+                        <option @if($k == 0) selected @endif value="{{$type->id}}">{{$type->name}}</option>
+                        @endforeach
                     </select>
                 </div>
-
+                @if(isset($category->types->first()->id))
                 <div id="service-area">
                     <div class="mb-1" id="vk-likes-service">
                         <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
                         <select class="form-select" name="service_id" id="basicSelect">
-                            <option value="400">Лайки качественные (70 руб.)</option>
+                            @foreach(App\Models\Type::find($category->types->first()->id)->services as $key => $serve)
+                            <option value="{{$serve->service_id}}" @if($key == 0) selected @endif>{{$serve->name}}</option>
+                            @endforeach
                         </select>
                     </div>
                 </div>
-
+                @endif
                 <div class="mb-1">
                     <label class="form-label" for="basicInput">Ссылка на пост</label>
                     <input type="text" name="link" class="form-control" id="basicInput" placeholder="">
@@ -74,54 +65,7 @@
             </div>
         </div>
         </form>
-
-        <form action="{{route('new.order')}}" method="POST" style="display: none" id="inst-form">
-            @csrf
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Instagram</h4>
-                </div>
-                <div class="card-body">
-                    <div class="mb-1">
-                        <label class="form-label" for="basicSelect">Тип накрутки</label>
-                        <select class="form-select" onchange="instTypeSelect($(this).val())" id="basicSelect vk-type-select">
-                            <option selected value="inst-subscribe-service">Подписчики</option>
-                            <option value="inst-like-service">Лайки</option>
-                            <option value="inst-view-service">Просмотры</option>
-                            <option value="inst-history-service">Просмотры историй</option>
-                            <option value="inst-live-service">Прямой эфир</option>
-                            <option value="inst-comments-service">Комментарии</option>
-                            <option value="inst-coverage-service">Охват публикаций</option>
-                            <option value="inst-save-service">Сохранения</option>
-                        </select>
-                    </div>
-
-                    <div id="inst-service-area">
-                        <div class="mb-1" id="inst-subscribe-service">
-                            <label class="form-label" for="basicSelect">Вид накрутки</label>
-                            <select class="form-select" name="service_id" id="basicSelect">
-                                <option value="383">Подписчики RU & ЖИВЫЕ (65 руб.)</option>
-                                <option value="428">Подписчики MIX REAL (45 руб.)</option>
-                                <option value="375">Подписчики БЕЗ ОТПИСОК (45 руб.)</option>
-                                <option value="263">Подписчики (30 руб.)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="mb-1">
-                        <label class="form-label" for="basicInput">Ссылка на пост</label>
-                        <input type="text" class="form-control" name="link" id="basicInput" placeholder="">
-                    </div>
-
-                    <div class="mb-1">
-                        <label class="form-label" for="basicInput">Количество</label>
-                        <input type="text" name="quantity" class="form-control" id="basicInput" placeholder="">
-                    </div>
-
-                    <button class="btn btn-primary waves-effect waves-float waves-light">Отправить</button>
-                </div>
-            </div>
-        </form>
+        @endforeach
     </div>
     <div class="col-md-6 col-12">
         <h1>Лайки <small class="text-muted">(Цена указана за 100 шт)</small></h1>
@@ -158,4 +102,25 @@
 @endsection
 @section('scripts')
     <script src="/assets/indexpage.js"></script>
+
+    <script>
+        function typeChange(id){
+            $.ajax({
+                url: '/api/type-change/'+id,
+                method: 'POST',
+                headers: {
+                    'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: 1,
+                cache: false,
+                success: function (data) {
+                    $('#vk-likes-service').html(data)
+                },
+                error: function (xhr, ajaxOptions, thrownError) {
+                    console.log(xhr.status);
+                    console.log(xhr.responseText);
+                }
+            });
+        }
+    </script>
 @endsection
