@@ -3,6 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ServiceController\StoreRequest;
+use App\Models\Service;
+use App\Models\Type;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -14,7 +17,8 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        //
+        $services = Service::get();
+        return view('admin.services.index', compact('services'));
     }
 
     /**
@@ -24,7 +28,8 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::get();
+        return view('admin.services.create', compact('types'));
     }
 
     /**
@@ -33,9 +38,23 @@ class ServiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        Service::create($request->validated());
+//        $service = new Service();
+//        $service->type_id = $request->type_id;
+//        $service->service_id = $request->service_id;
+//        $service->name = $request->name;
+//        $service->price = $request->price;
+//        $service->quality = $request->quality;
+//        $service->start = $request->start;
+//        $service->speed = $request->speed;
+//        $service->write_offs = $request->write_offs;
+//        $service->guarantee = $request->guarantee;
+//        $service->max = $request->max;
+//        $service->peculiarities = $request->peculiarities;
+//        $service->save();
+        return to_route('admin.service.index');
     }
 
     /**
@@ -57,7 +76,9 @@ class ServiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $service = Service::find($id);
+        $types = Type::get();
+        return view('admin.services.edit', compact('service', 'types'));
     }
 
     /**
@@ -69,7 +90,20 @@ class ServiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $service = Service::find($id);
+        $service->type_id = $request->type_id;
+        $service->service_id = $request->service_id;
+        $service->name = $request->name;
+        $service->price = $request->price;
+        $service->quality = $request->quality;
+        $service->start = $request->start;
+        $service->speed = $request->speed;
+        $service->write_offs = $request->write_offs;
+        $service->guarantee = $request->guarantee;
+        $service->max = $request->max;
+        $service->peculiarities = $request->peculiarities;
+        $service->save();
+        return to_route('admin.service.index');
     }
 
     /**
@@ -80,6 +114,8 @@ class ServiceController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $service = Service::find($id);
+        $service->delete();
+        return to_route('admin.service.index');
     }
 }
