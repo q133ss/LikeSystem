@@ -26,6 +26,8 @@ Route::middleware('auth')->group(function (){
     });
 });
 
+Route::get('locale/{lang}', [\App\Http\Controllers\LocaleController::class, 'change'])->name('locale');
+
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'auth'])->name('auth');
 Route::get('register', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('register');

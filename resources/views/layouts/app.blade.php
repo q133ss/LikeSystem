@@ -69,19 +69,19 @@
                 </a>
 
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag">
-                    <a class="dropdown-item" href="#" data-language="ru">
+                    <a class="dropdown-item" href="{{route('locale','ru')}}" data-language="ru">
                         <i class="flag-icon flag-icon-ru"></i> Русский
                     </a>
-                    <a class="dropdown-item" href="#" data-language="en">
+                    <a class="dropdown-item" href="{{route('locale','en')}}" data-language="en">
                         <i class="flag-icon flag-icon-us"></i> English
                     </a>
-                    <a class="dropdown-item" href="#" data-language="fr">
+                    <a class="dropdown-item" href="{{route('locale','fr')}}" data-language="fr">
                         <i class="flag-icon flag-icon-fr"></i> French
                     </a>
-                    <a class="dropdown-item" href="#" data-language="de">
+                    <a class="dropdown-item" href="{{route('locale','de')}}" data-language="de">
                         <i class="flag-icon flag-icon-de"></i> German
                     </a>
-                    <a class="dropdown-item" href="#" data-language="pt">
+                    <a class="dropdown-item" href="{{route('locale','pt')}}" data-language="pt">
                         <i class="flag-icon flag-icon-pt"></i> Portuguese
                     </a>
                 </div>
@@ -288,9 +288,9 @@
                                     </g>
                                 </g>
                             </svg></span>
-                    <h2 class="brand-text">Vuexy</h2>
+                    <h2 class="brand-text">LikeLy</h2>
                 </a></li>
-            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>
+{{--            <li class="nav-item nav-toggle"><a class="nav-link modern-nav-toggle pe-0" data-bs-toggle="collapse"><i class="d-block d-xl-none text-primary toggle-icon font-medium-4" data-feather="x"></i><i class="d-none d-xl-block collapse-toggle-icon font-medium-4  text-primary" data-feather="disc" data-ticon="disc"></i></a></li>--}}
         </ul>
     </div>
     <div class="shadow-bottom"></div>
