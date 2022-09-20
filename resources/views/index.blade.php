@@ -33,9 +33,9 @@
             <div class="card-body">
                 <div class="mb-1">
                     <label class="form-label" for="basicSelect">{{__('services.wrapping_type')}}</label>
-                    <select class="form-select" onchange="typeChange($(this).val(), '{){$category->id}}')" id="basicSelect vk-type-select">
+                    <select class="form-select" onchange="typeChange($(this).val(), '{{$category->id}}')" id="basicSelect vk-type-select">
                         @foreach($category->types as $k => $type)
-                        <option @if($k == 0) selected @endif value="{{$type->id}}">{{$type->name}}</option>
+                        <option @if($k == 0) selected @endif value="{{$type->id}}">{{$type->getName()}}</option>
                         @endforeach
                     </select>
                 </div>
@@ -46,7 +46,7 @@
                         <div id="service-select-area">
                         <select class="form-select" name="service_id" id="basicSelect service-select" onchange="serviceInfo($(this).val())">
                             @foreach(App\Models\Type::find($category->types->first()->id)->services as $key => $serve)
-                            <option value="{{$serve->service_id}}" @if($key == 0) selected @endif>{{$serve->name}}</option>
+                            <option value="{{$serve->service_id}}" @if($key == 0) selected @endif>{{$serve->name}} | {{$serve->getField('name')}} | {{$serve->getField('quality')}}</option>
                             @endforeach
                         </select>
                         </div>

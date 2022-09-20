@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Localization;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -208,5 +209,29 @@ class DatabaseSeeder extends Seeder
                 'price' => $service['price']
             ]);
         }
+
+        $localization = new Localization();
+        $localization->language = 'en';
+        $localization->field = 'name';
+        $localization->value = 'Likes';
+        $localization->localizable_type = 'App\Models\Type';
+        $localization->localizable_id = '1';
+        $localization->save();
+
+        $localization = new Localization();
+        $localization->language = 'en';
+        $localization->field = 'name';
+        $localization->value = 'Likes Quality';
+        $localization->localizable_type = 'App\Models\Service';
+        $localization->localizable_id = '1';
+        $localization->save();
+
+        $localization = new Localization();
+        $localization->language = 'en';
+        $localization->field = 'quality';
+        $localization->value = 'Quality1';
+        $localization->localizable_type = 'App\Models\Service';
+        $localization->localizable_id = '1';
+        $localization->save();
     }
 }
