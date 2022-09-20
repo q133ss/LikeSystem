@@ -4,10 +4,9 @@ function serviceChange(category_id, count){
     }
     $('#'+category_id+'-service-form').show()
 
-    //ищем выбранную услугу
-    let select = $('#'+category_id+'-service-form > .card > .card-body > #service-area > .mb-1 > select').val();
-    //Выводим инфу о ней
-    serviceInfo(select)
+    //ищем выбранную услугу и выводим инфу
+    let servId = $('#'+category_id+'-service-form').find('#service-select-area > select').val()
+    serviceInfo(servId)
 }
 
 function serviceInfo(id){

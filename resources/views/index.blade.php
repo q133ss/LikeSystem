@@ -1,7 +1,7 @@
 @extends('layouts.app')
-@section('title','Главная')
+@section('title'){{__('services.title')}}@endsection
 @section('meta')
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{){ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 @endsection
 @section('content')
@@ -32,8 +32,8 @@
             </div>
             <div class="card-body">
                 <div class="mb-1">
-                    <label class="form-label" for="basicSelect">Тип накрутки</label>
-                    <select class="form-select" onchange="typeChange($(this).val(), '{{$category->id}}')" id="basicSelect vk-type-select">
+                    <label class="form-label" for="basicSelect">{{__('services.wrapping_type')}}</label>
+                    <select class="form-select" onchange="typeChange($(this).val(), '{){$category->id}}')" id="basicSelect vk-type-select">
                         @foreach($category->types as $k => $type)
                         <option @if($k == 0) selected @endif value="{{$type->id}}">{{$type->name}}</option>
                         @endforeach
@@ -42,7 +42,7 @@
                 @if(isset($category->types->first()->id))
                 <div id="service-area">
                     <div class="mb-1">
-                        <label class="form-label" for="basicSelect">Услуга (Стоимость за 100)</label>
+                        <label class="form-label" for="basicSelect">{{__('services.service_cost')}}</label>
                         <div id="service-select-area">
                         <select class="form-select" name="service_id" id="basicSelect service-select" onchange="serviceInfo($(this).val())">
                             @foreach(App\Models\Type::find($category->types->first()->id)->services as $key => $serve)
@@ -54,58 +54,58 @@
                 </div>
                 @endif
                 <div class="mb-1">
-                    <label class="form-label" for="basicInput">Ссылка на пост</label>
+                    <label class="form-label" for="basicInput">{{__('services.post_link')}}</label>
                     <input type="text" name="link" class="form-control" id="basicInput" placeholder="">
                 </div>
 
                 <div class="mb-1">
-                    <label class="form-label" for="basicInput">Количество</label>
+                    <label class="form-label" for="basicInput">{{__('services.qty')}}</label>
                     <input type="text" name="quantity" class="form-control" id="basicInput" placeholder="">
                 </div>
 
-                <button class="btn btn-primary waves-effect waves-float waves-light">Отправить</button>
+                <button class="btn btn-primary waves-effect waves-float waves-light">{{__('services.send')}}</button>
             </div>
         </div>
         </form>
         @endforeach
     </div>
     <div class="col-md-6 col-12">
-        <h1 id="info-service-name">Выберите услугу</h1>
+        <h1 id="info-service-name">{{__('services.change_service')}}</h1>
         <dl class="row">
-            <dt class="col-sm-3">Итого:</dt>
+            <dt class="col-sm-3">{{__('services.total')}}:</dt>
             <dd class="col-sm-9"><strong id="info-service-price"></strong></dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-3">Качество:</dt>
+            <dt class="col-sm-3">{{__('services.quality')}}:</dt>
             <dd class="col-sm-9" id="info-service-quality"></dd>
         </dl>
         <dl class="row">
-            <dt class="col-sm-3">Запуск:</dt>
+            <dt class="col-sm-3">{{__('services.start')}}:</dt>
             <dd class="col-sm-9" id="info-service-start"></dd>
         </dl>
 
         <dl class="row">
-            <dt class="col-sm-3">Скорость:</dt>
+            <dt class="col-sm-3">{{__('services.speed')}}:</dt>
             <dd class="col-sm-9" id="info-service-speed"></dd>
         </dl>
 
         <dl class="row">
-            <dt class="col-sm-3">Списания:</dt>
+            <dt class="col-sm-3">{{__('services.write_offs')}}:</dt>
             <dd class="col-sm-9" id="info-service-write_offs"></dd>
         </dl>
 
         <dl class="row">
-            <dt class="col-sm-3">Списания:</dt>
+            <dt class="col-sm-3">{{__('services.guarantee')}}:</dt>
             <dd class="col-sm-9" id="info-service-guarantee"></dd>
         </dl>
 
         <dl class="row">
-            <dt class="col-sm-3">Максимум:</dt>
+            <dt class="col-sm-3">{{__('services.max')}}:</dt>
             <dd class="col-sm-9" id="info-service-max"></dd>
         </dl>
 
         <dl class="row">
-            <dt class="col-sm-3">Особенности:</dt>
+            <dt class="col-sm-3">{{__('services.peculiarities')}}:</dt>
             <dd class="col-sm-9" id="info-service-peculiarities"></dd>
         </dl>
 

@@ -1,12 +1,12 @@
 @extends('layouts.app')
-@section('title', 'Мои заказы')
+@section('title'){{__('orders.title')}}@endsection
 @section('content')
     <table class="table">
         <thead>
         <tr>
             <th>ID</th>
-            <th>Услуга</th>
-            <th>Цена</th>
+            <th>{{__('orders.service')}}</th>
+            <th>{{__('orders.cost')}}</th>
         </tr>
         </thead>
         <tbody>

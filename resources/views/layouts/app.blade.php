@@ -62,9 +62,30 @@
             </ul>
         </div>
         <ul class="nav navbar-nav align-items-center ms-auto">
-{{--            <li class="nav-item dropdown dropdown-language"><a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="flag-icon flag-icon-us"></i><span class="selected-language">English</span></a>--}}
-{{--                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag"><a class="dropdown-item" href="#" data-language="en"><i class="flag-icon flag-icon-us"></i> English</a><a class="dropdown-item" href="#" data-language="fr"><i class="flag-icon flag-icon-fr"></i> French</a><a class="dropdown-item" href="#" data-language="de"><i class="flag-icon flag-icon-de"></i> German</a><a class="dropdown-item" href="#" data-language="pt"><i class="flag-icon flag-icon-pt"></i> Portuguese</a></div>--}}
-{{--            </li>--}}
+            <li class="nav-item dropdown dropdown-language">
+
+                <a class="nav-link dropdown-toggle" id="dropdown-flag" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <i class="flag-icon flag-icon-ru"></i><span class="selected-language">Русский</span>
+                </a>
+
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-flag">
+                    <a class="dropdown-item" href="#" data-language="ru">
+                        <i class="flag-icon flag-icon-ru"></i> Русский
+                    </a>
+                    <a class="dropdown-item" href="#" data-language="en">
+                        <i class="flag-icon flag-icon-us"></i> English
+                    </a>
+                    <a class="dropdown-item" href="#" data-language="fr">
+                        <i class="flag-icon flag-icon-fr"></i> French
+                    </a>
+                    <a class="dropdown-item" href="#" data-language="de">
+                        <i class="flag-icon flag-icon-de"></i> German
+                    </a>
+                    <a class="dropdown-item" href="#" data-language="pt">
+                        <i class="flag-icon flag-icon-pt"></i> Portuguese
+                    </a>
+                </div>
+            </li>
             <li class="nav-item d-none d-lg-block"><a class="nav-link nav-link-style"><i class="ficon" data-feather="moon"></i></a></li>
 
             <li class="nav-item dropdown dropdown-notification me-25"><a class="nav-link" href="#" data-bs-toggle="dropdown"><i class="ficon" data-feather="bell"></i><span class="badge rounded-pill bg-danger badge-up">5</span></a>
@@ -150,7 +171,7 @@
                 </ul>
             </li>
             <li class="nav-item dropdown dropdown-user"><a class="nav-link dropdown-toggle dropdown-user-link" id="dropdown-user" href="#" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">John Doe</span><span class="user-status">100$</span></div><span class="avatar"><img class="round" src="/assets/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
+                    <div class="user-nav d-sm-flex d-none"><span class="user-name fw-bolder">{{Auth()->User()->name}}</span><span class="user-status">{{Auth()->User()->money}} ₽</span></div><span class="avatar"><img class="round" src="/assets/app-assets/images/portrait/small/avatar-s-11.jpg" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="dropdown-user"><a class="dropdown-item" href="page-profile.html"><i class="me-50" data-feather="user"></i> Profile</a><a class="dropdown-item" href="app-email.html"><i class="me-50" data-feather="mail"></i> Inbox</a><a class="dropdown-item" href="app-todo.html"><i class="me-50" data-feather="check-square"></i> Task</a><a class="dropdown-item" href="app-chat.html"><i class="me-50" data-feather="message-square"></i> Chats</a>
                     <div class="dropdown-divider"></div><a class="dropdown-item" href="page-account-settings-account.html"><i class="me-50" data-feather="settings"></i> Settings</a><a class="dropdown-item" href="page-pricing.html"><i class="me-50" data-feather="credit-card"></i> Pricing</a><a class="dropdown-item" href="page-faq.html"><i class="me-50" data-feather="help-circle"></i> FAQ</a><a class="dropdown-item" href="auth-login-cover.html"><i class="me-50" data-feather="power"></i> Logout</a>
@@ -279,28 +300,28 @@
             <li class="nav-item">
                 <a class="d-flex align-items-center" href="/">
                     <i data-feather="mail"></i>
-                    <span class="menu-title text-truncate" data-i18n="Email">Создать заказ</span>
+                    <span class="menu-title text-truncate" data-i18n="Email">{{__('menu.create_order')}}</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="d-flex align-items-center" href="{{route('my.orders')}}">
                     <i data-feather="mail"></i>
-                    <span class="menu-title text-truncate" data-i18n="Email">Мои заказы</span>
+                    <span class="menu-title text-truncate" data-i18n="Email">{{__('menu.my_orders')}}</span>
                 </a>
             </li>
 
             <li class="nav-item">
                 <a class="d-flex align-items-center" href="app-email.html">
                     <i data-feather="mail"></i>
-                    <span class="menu-title text-truncate" data-i18n="Email">Пополнть баланс</span>
+                    <span class="menu-title text-truncate" data-i18n="Email">{{__('menu.balance')}}</span>
                 </a>
             </li>
             @if(Auth()->user()->isAdmin)
             <li class="nav-item">
                 <a class="d-flex align-items-center" href="{{route('admin.index')}}">
                     <i data-feather="mail"></i>
-                    <span class="menu-title text-truncate">Админка</span>
+                    <span class="menu-title text-truncate">{{__('menu.admin')}}</span>
                 </a>
             </li>
             @endif
@@ -320,7 +341,7 @@
 
 <!-- BEGIN: Footer-->
 <footer class="footer footer-static footer-light">
-    <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; 2021<a class="ms-25" href="https://1.envato.market/pixinvent_portfolio" target="_blank">Pixinvent</a><span class="d-none d-sm-inline-block">, All rights Reserved</span></span><span class="float-md-end d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
+    <p class="clearfix mb-0"><span class="float-md-start d-block d-md-inline-block mt-25">COPYRIGHT &copy; {{date('Y')}}, All rights Reserved</span></span><span class="float-md-end d-none d-md-block">Hand-crafted & Made with<i data-feather="heart"></i></span></p>
 </footer>
 <button class="btn btn-primary btn-icon scroll-top" type="button"><i data-feather="arrow-up"></i></button>
 <!-- END: Footer-->
