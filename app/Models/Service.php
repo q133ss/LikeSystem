@@ -24,16 +24,16 @@ class Service extends Model
 
     /**
      * @param $field
+     * @param $lang
      * @return string|null
      */
-    public function getField($field) : string|null
+    public function getField($field, $lang) : string|null
     {
-        $lang = session('locale') ? session('locale') : 'ru';
         $name = $this->lozalization()->where('language',$lang)->where('field', $field);
         if($name->exists()){
             return $name->pluck('value')->first();
         }else{
-            return $this->$field ? $this->$field : null;
+            return null;
         }
     }
 

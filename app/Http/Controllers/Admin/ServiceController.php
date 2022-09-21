@@ -4,8 +4,10 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceController\StoreRequest;
+use App\Models\Language;
 use App\Models\Service;
 use App\Models\Type;
+use App\Services\LocaleService;
 use Illuminate\Http\Request;
 
 class ServiceController extends Controller
@@ -78,7 +80,8 @@ class ServiceController extends Controller
     {
         $service = Service::find($id);
         $types = Type::get();
-        return view('admin.services.edit', compact('service', 'types'));
+        $langs = Language::get();
+        return view('admin.services.edit', compact('service', 'types','langs'));
     }
 
     /**
@@ -103,6 +106,19 @@ class ServiceController extends Controller
         $service->max = $request->max;
         $service->peculiarities = $request->peculiarities;
         $service->save();
+
+        //langs
+        $langs = Language::get();
+        $services = ['name','service_id','price','quality','start','speed','write_offs','guarantee','max','peculiarities'];
+        foreach ($langs as $lang){
+            foreach ($services as $serv){
+                $val = $lang->code.'-'.$serv;
+                if($request->has($val) != null){
+                    LocaleService::translate('App\Models\Service', $service->id, $lang->code, $serv, $request->$val);
+                }
+            }
+        }
+
         return to_route('admin.service.index');
     }
 

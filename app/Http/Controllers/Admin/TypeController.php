@@ -88,11 +88,9 @@ class TypeController extends Controller
         $type->save();
         //Langs service
         $langs = Language::get();
-        //$vals = [];
         foreach($langs as $lang){
             $val = $lang->code.'-name';
             if($request->has($val) != null){
-                //$vals[] = $request->$val;
                 LocaleService::translate('App\Models\Type', $type->id, $lang->code, 'name', $request->$val);
             }
         }
