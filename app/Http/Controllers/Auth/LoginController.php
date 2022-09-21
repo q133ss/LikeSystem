@@ -3,10 +3,12 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LoginController\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 
 class LoginController extends Controller
 {
@@ -34,5 +36,24 @@ class LoginController extends Controller
         }else{
             return back()->withErrors('Пользователь не найден');
         }
+    }
+
+    public function registration()
+    {
+        return view('auth.register');
+    }
+
+    public function register(RegisterRequest $request)
+    {
+        $user = User::create($request->validated());
+        Auth::login($user);
+        return to_route('index');
+    }
+
+    public function logout()
+    {
+        Session::flush();
+        Auth::logout();
+        return redirect('login');
     }
 }

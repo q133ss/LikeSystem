@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('title'){{__('services.title')}}@endsection
 @section('meta')
-    <meta name="csrf-token" content="{){ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
 @endsection
 @section('content')
@@ -46,7 +46,7 @@
                         <div id="service-select-area">
                         <select class="form-select" name="service_id" id="basicSelect service-select" onchange="serviceInfo($(this).val())">
                             @foreach(App\Models\Type::find($category->types->first()->id)->services as $key => $serve)
-                            <option value="{{$serve->service_id}}" @if($key == 0) selected @endif>{{$serve->name}} | {{$serve->getField('name')}} | {{$serve->getField('quality')}}</option>
+                            <option value="{{$serve->service_id}}" @if($key == 0) selected @endif>{{$serve->getField('name', session('locale'))}}</option>
                             @endforeach
                         </select>
                         </div>

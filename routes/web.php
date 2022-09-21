@@ -30,4 +30,6 @@ Route::get('locale/{lang}', [\App\Http\Controllers\LocaleController::class, 'cha
 
 Route::get('login', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('login');
 Route::post('login', [App\Http\Controllers\Auth\LoginController::class, 'auth'])->name('auth');
-Route::get('register', [App\Http\Controllers\Auth\LoginController::class, 'login'])->name('register');
+Route::get('register', [App\Http\Controllers\Auth\LoginController::class, 'registration'])->name('register');
+Route::post('register', [App\Http\Controllers\Auth\LoginController::class, 'register'])->name('registration');
+Route::get('logout', [App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
