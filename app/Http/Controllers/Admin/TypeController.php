@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Category;
+use App\Models\Language;
 use App\Models\Type;
+use App\Services\LocaleService;
 use Illuminate\Http\Request;
 
 class TypeController extends Controller
@@ -67,7 +69,8 @@ class TypeController extends Controller
     {
         $categories = Category::get();
         $type = Type::find($id);
-        return view('admin.types.edit', compact('categories', 'type'));
+        $langs = Language::get();
+        return view('admin.types.edit', compact('categories', 'type', 'langs'));
     }
 
     /**
@@ -83,6 +86,16 @@ class TypeController extends Controller
         $type->name = $request->name;
         $type->category_id = $request->category_id;
         $type->save();
+        //Langs service
+        $langs = Language::get();
+        //$vals = [];
+        foreach($langs as $lang){
+            $val = $lang->code.'-name';
+            if($request->has($val) != null){
+                //$vals[] = $request->$val;
+                LocaleService::translate('App\Models\Type', $type->id, $lang->code, 'name', $request->$val);
+            }
+        }
         return to_route('admin.type.index');
     }
 

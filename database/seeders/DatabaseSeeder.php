@@ -210,28 +210,27 @@ class DatabaseSeeder extends Seeder
             ]);
         }
 
-        $localization = new Localization();
-        $localization->language = 'en';
-        $localization->field = 'name';
-        $localization->value = 'Likes';
-        $localization->localizable_type = 'App\Models\Type';
-        $localization->localizable_id = '1';
-        $localization->save();
+        $langs = [
+            ['code' => 'ru', 'name' => 'Русский'],
+            ['code' => 'en', 'name' => 'English'],
+            ['code' => 'fr', 'name' => 'French'],
+            ['code' => 'de', 'name' => 'German'],
+            ['code' => 'pt', 'name' => 'Portuguese']
+        ];
 
-        $localization = new Localization();
-        $localization->language = 'en';
-        $localization->field = 'name';
-        $localization->value = 'Likes Quality';
-        $localization->localizable_type = 'App\Models\Service';
-        $localization->localizable_id = '1';
-        $localization->save();
+        foreach($langs as $lang) {
+            \App\Models\Language::create([
+                'code' => $lang['code'],
+                'name' => $lang['name']
+            ]);
+        }
 
-        $localization = new Localization();
-        $localization->language = 'en';
-        $localization->field = 'quality';
-        $localization->value = 'Quality1';
-        $localization->localizable_type = 'App\Models\Service';
-        $localization->localizable_id = '1';
-        $localization->save();
+//        $localization = new Localization();
+//        $localization->language = 'en';
+//        $localization->field = 'name';
+//        $localization->value = 'Likes';
+//        $localization->localizable_type = 'App\Models\Type';
+//        $localization->localizable_id = '1';
+//        $localization->save();
     }
 }

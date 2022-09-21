@@ -46,4 +46,19 @@ class Type extends Model
             return $this->name;
         }
     }
+
+    /**
+     * @param $lang
+     * @param $field
+     * @return mixed|null
+     */
+    public function getField($lang, $field)
+    {
+        $name = $this->lozalization()->where('language',$lang)->where('field', $field);
+        if($name->exists()){
+            return $name->pluck('value')->first();
+        }else{
+            return null;
+        }
+    }
 }
