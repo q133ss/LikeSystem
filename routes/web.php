@@ -24,6 +24,10 @@ Route::middleware('auth')->group(function (){
         Route::resource('type', App\Http\Controllers\Admin\TypeController::class);
         Route::resource('service', App\Http\Controllers\Admin\ServiceController::class);
     });
+
+    Route::get('profile', [App\Http\Controllers\Auth\LoginController::class, 'profile'])->name('profile');
+    Route::post('profile', [App\Http\Controllers\Auth\LoginController::class, 'profileUpdate'])->name('profile.update');
+    Route::post('profile/password', [App\Http\Controllers\Auth\LoginController::class, 'updatePassword'])->name('profile.update.password');
 });
 
 Route::get('locale/{lang}', [\App\Http\Controllers\LocaleController::class, 'change'])->name('locale');

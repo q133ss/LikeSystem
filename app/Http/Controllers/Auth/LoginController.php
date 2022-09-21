@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LoginController\RegisterRequest;
+use App\Http\Requests\LoginController\UpdatePasswordRequest;
+use App\Http\Requests\LoginController\UpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -48,6 +50,26 @@ class LoginController extends Controller
         $user = User::create($request->validated());
         Auth::login($user);
         return to_route('index');
+    }
+
+    public function profile()
+    {
+        $user = Auth()->user();
+        return view('auth.profile', compact('user'));
+    }
+
+    public function profileUpdate(UpdateRequest $request)
+    {
+        Auth()->user()->update($request->validated());
+        return back();
+    }
+
+    public function updatePassword(UpdatePasswordRequest $request)
+    {
+        $user = Auth()->user();
+        $user->password = Hash::make($request->new_password);
+        $user->save();
+        return back();
     }
 
     public function logout()
